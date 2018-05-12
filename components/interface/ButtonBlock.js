@@ -3,14 +3,16 @@ import Button from './Button';
 
 const ButtonBlock = (props) => {
   return (
-    <div>
-      <Button />
+    <div className='button-container'>
+      <Button onClick={ props.attack }/>
       <Button />
       <Button />
       <style jsx>{`
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
+        .button-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        }
       `}</style>
     </div>
   )

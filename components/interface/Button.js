@@ -2,7 +2,7 @@ import React from 'react';
 
 const Button = (props) => {
   return (
-    <button>
+    <button onClick={ props.onClick }>
       button
       <style jsx>{`
 
