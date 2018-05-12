@@ -10,16 +10,22 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      damageDealt: 0
+      damageDealt: { damage: 0, id: 0 },
+      monsterHealth: 10
     };
     this.attack = this.attack.bind(this);
   }
 
   attack() {
     const damage =  Math.floor(Math.random() * Math.floor(5));
-    alert(`attacked and dealt: ${damage} damage!` )
-    this.setState((state) => ({ damageDealt: damage }))
+    console.log(`attacked and dealt: ${damage} damage!` )
+    const damageDealt = { ...this.state.damageDealt };
+    damageDealt.damage = damage;
+    damageDealt.id += 1;
+    this.setState((state) => ( { damageDealt } ))
   }
+
+
 
   render() {
     return (

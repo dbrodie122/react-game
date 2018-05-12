@@ -11,18 +11,17 @@ class BattleEnemyRow extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    //currently this code is giving me an infinite loop and I dont have the patience to figure out exactly what i'm doing wrong.  Good work today though! probably an hour straight of work =)
-    // if ( prevState.damageRecieved !== this.props.damage ) {
-    //   this.takeDamage(this.props.damage);
-    // }
-    // if (this.state.health <= 0) {
-    //   console.log('enemy died');
-    // }
-
+    if (this.props.damage.id !== prevProps.damage.id && prevProps.damage.id !== undefined) {
+      this.takeDamage(this.props.damage.damage)
+    }
   }
-
+  
   takeDamage(damage) {
     this.setState((state) => ({health: state.health -= damage}))
+    console.log('damaged!', this.state.health)
+    if (this.state.health <= 0) {
+      console.log('monster died!')
+    }
   }
 
 
