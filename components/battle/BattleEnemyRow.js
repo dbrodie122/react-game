@@ -17,11 +17,11 @@ class BattleEnemyRow extends React.Component {
   }
   
   takeDamage(damage) {
-    this.setState((state) => ({health: state.health -= damage}))
-    console.log('damaged!', this.state.health)
     if (this.state.health <= 0) {
       console.log('monster died!')
     }
+    this.setState((state) => ({health: state.health -= damage}))
+    console.log('damaged!', this.state.health - damage)
   }
 
 
