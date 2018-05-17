@@ -1,4 +1,5 @@
 import React from 'react';
+import HealthBar from '../components/battle/HealthBar';
 
 class BattleTest extends React.Component {
   constructor(props) {
@@ -10,11 +11,13 @@ class BattleTest extends React.Component {
       player: {
         name: 'Player',
         health: 20,
+        maxHealth: 20,
         strength: 5
       },
       enemy: {
         name: 'Enemy',
         health: 10,
+        maxHealth:10,
         strength: 5
       },
       eventLog: []
@@ -75,11 +78,31 @@ class BattleTest extends React.Component {
     }
   }
 
+// progress bar
+  // get the total health of the enemy
+  // when damage is done it is subtracted from the total.
+  // get the new percentage of health remaining
+  // have a div which has width that changes dynamically relative to the length of the container.
 
 
   
 
   render() {
+    const percentHealthRemaining = ((this.state.player.health / this.state.player.maxHealth) * 100)
+    let color = 'green';
+    if (percentHealthRemaining <= 25) {
+      color = 'red';
+    } else if (percentHealthRemaining <= 50) {
+      color = 'yellow';
+    } else if (percentHealthRemaining > 50) {
+      color = 'green';
+    }
+    const healthStyle = {
+      backgroundColor: `${color}`,
+      width: `${percentHealthRemaining}%`,
+      height: '100%',
+      transition: 'all 0.5s'
+    };
 
     return(
       <div className='main-container'>
@@ -95,16 +118,17 @@ class BattleTest extends React.Component {
           </div>
         </div>
         <button onClick={ this.attack }>Attack</button>
+        <HealthBar healthStyle={ healthStyle }/>
         <h3>Event Log</h3>
         { this.state.eventLog.length > 0 && this.state.eventLog.map((event, i) => <p key={ event + i }>{ event }</p>) }
         <style jsx>{`
-          .secondary-container {
-            display: flex;
-            justify-content: space-around;
-          }
           .main-container {
             display: flex;
             flex-direction: column;
+          }
+          .secondary-container {
+            display: flex;
+            justify-content: space-around;
           }
           .info-column {
             display: flex;
