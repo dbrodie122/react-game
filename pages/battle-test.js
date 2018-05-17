@@ -78,28 +78,37 @@ class BattleTest extends React.Component {
     }
   }
 
-// progress bar
-  // get the total health of the enemy
-  // when damage is done it is subtracted from the total.
-  // get the new percentage of health remaining
-  // have a div which has width that changes dynamically relative to the length of the container.
-
-
-  
 
   render() {
-    const percentHealthRemaining = ((this.state.player.health / this.state.player.maxHealth) * 100)
+    const percentPlayerHealth = ((this.state.player.health / this.state.player.maxHealth) * 100)
     let color = 'green';
-    if (percentHealthRemaining <= 25) {
+    if (percentPlayerHealth <= 25) {
       color = 'red';
-    } else if (percentHealthRemaining <= 50) {
+    } else if (percentPlayerHealth <= 50) {
       color = 'yellow';
-    } else if (percentHealthRemaining > 50) {
+    } else if (percentPlayerHealth > 50) {
       color = 'green';
     }
-    const healthStyle = {
+    const playerHealthStyle = {
       backgroundColor: `${color}`,
-      width: `${percentHealthRemaining}%`,
+      width: `${percentPlayerHealth}%`,
+      height: '100%',
+      transition: 'all 0.5s'
+    };
+
+    const percentEnemyHealth = ((this.state.enemy.health / this.state.enemy.maxHealth) * 100)
+    console.log(percentEnemyHealth)
+    let color2 = 'green';
+    if (percentEnemyHealth <= 25) {
+      color2 = 'red';
+    } else if (percentEnemyHealth <= 50) {
+      color2 = 'yellow';
+    } else if (percentEnemyHealth > 50) {
+      color2 = 'green';
+    }
+    const enemyHealthStyle = {
+      backgroundColor: `${color2}`,
+      width: `${percentEnemyHealth}%`,
       height: '100%',
       transition: 'all 0.5s'
     };
@@ -118,7 +127,10 @@ class BattleTest extends React.Component {
           </div>
         </div>
         <button onClick={ this.attack }>Attack</button>
-        <HealthBar healthStyle={ healthStyle }/>
+        <div className='secondary-container'>
+          <HealthBar healthStyle={ playerHealthStyle }/>
+          <HealthBar healthStyle={ enemyHealthStyle }/>
+        </div>
         <h3>Event Log</h3>
         { this.state.eventLog.length > 0 && this.state.eventLog.map((event, i) => <p key={ event + i }>{ event }</p>) }
         <style jsx>{`
