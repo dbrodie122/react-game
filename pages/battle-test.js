@@ -25,11 +25,11 @@ class BattleTest extends React.Component {
   }
 
   componentDidMount() {
-    // this.manageEnemyInterval();
+    this.manageEnemyInterval();
   }
 
   componentWillUnmount() {
-    // clearInterval(this.enemyInterval)
+    clearInterval(this.enemyInterval)
   }
 
   attack() {
@@ -43,11 +43,9 @@ class BattleTest extends React.Component {
     const event = `${attacker.name} attacks ${targetString} for ${damage} damage!`;
     eventLog.push(event);
     if (targetString === 'player') {
-      setTimeout(() => {
-        console.log('timeouts')
+
         this.setState((state) => ({ [targetString]: tCopy, eventLog }))
         this.manageTurnData();
-      }, 1000)
     } else {
       this.setState((state) => ({ [targetString]: tCopy, eventLog }))
       this.manageTurnData();
@@ -72,7 +70,6 @@ class BattleTest extends React.Component {
       // if the turn is player, target should be enemy and attacker should be player.
     if (this.state.playerTurn) {
       this.setState((state) => ({ playerTurn: false, target: 'player', attacker: 'enemy' }))
-      this.attack()
     } else {
       this.setState((state) => ({ playerTurn: true, target: 'enemy', attacker: 'player' }))      
     }
