@@ -11,7 +11,6 @@ const HealthBar = (props) => {
           height: 2vh;
           border: 1px solid black;
         }
-
       `}</style>
     </div>
   )

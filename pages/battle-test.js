@@ -39,7 +39,7 @@ class BattleTest extends React.Component {
     const attacker = this.state[this.state.attacker];
     const target = this.state[this.state.target];
     const targetString = this.state.target;
-    const damage = Math.floor(Math.random() * attacker.strength );
+    const damage = Math.floor((Math.random() * attacker.strength) + 1);
     const tCopy = { ...target };
     tCopy.health -= damage;
     const eventLog = this.state.eventLog;
@@ -64,7 +64,7 @@ class BattleTest extends React.Component {
       if (!this.state.playerTurn) {
         this.attack()
       }
-    }, 100)
+    }, 1000)
   }
 
   manageTurnData() {
@@ -80,7 +80,7 @@ class BattleTest extends React.Component {
 
 
   render() {
-    const percentPlayerHealth = ((this.state.player.health / this.state.player.maxHealth) * 100)
+    let percentPlayerHealth = ((this.state.player.health / this.state.player.maxHealth) * 100)
     let color = 'green';
     if (percentPlayerHealth <= 25) {
       color = 'red';
@@ -89,6 +89,9 @@ class BattleTest extends React.Component {
     } else if (percentPlayerHealth > 50) {
       color = 'green';
     }
+    if (percentPlayerHealth <= 0) {
+      percentPlayerHealth = 0;
+    }
     const playerHealthStyle = {
       backgroundColor: `${color}`,
       width: `${percentPlayerHealth}%`,
@@ -96,8 +99,7 @@ class BattleTest extends React.Component {
       transition: 'all 0.5s'
     };
 
-    const percentEnemyHealth = ((this.state.enemy.health / this.state.enemy.maxHealth) * 100)
-    console.log(percentEnemyHealth)
+    let percentEnemyHealth = ((this.state.enemy.health / this.state.enemy.maxHealth) * 100)
     let color2 = 'green';
     if (percentEnemyHealth <= 25) {
       color2 = 'red';
@@ -105,6 +107,9 @@ class BattleTest extends React.Component {
       color2 = 'yellow';
     } else if (percentEnemyHealth > 50) {
       color2 = 'green';
+    }
+    if (percentEnemyHealth <= 0) {
+      percentEnemyHealth = 0;
     }
     const enemyHealthStyle = {
       backgroundColor: `${color2}`,
