@@ -150,10 +150,14 @@ class BattleTest extends React.Component {
         <div className='secondary-container'>
           <div className='column'>
             <img src={warrior.gesture}/>
+            <div className='animation-box'>
+            </div>
             <HealthBar healthStyle={ playerHealthStyle }/>
           </div>
           <div className='column'>
             <img src={minotaur.gesture} style={{height: '192px', width: '256px'}}/>
+            <div className='animation-box'>
+            </div>
             <HealthBar healthStyle={ enemyHealthStyle }/>
           </div>
         </div>
@@ -171,6 +175,12 @@ class BattleTest extends React.Component {
           .column {
             display: flex;
             flex-direction: column;
+          }
+          .animation-box {
+            height: 192px;
+            width: 256px;
+            position: absolute;
+            background-color: rgba(122,435,353,0.3);
           }
         `}</style>
       </div>
