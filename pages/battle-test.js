@@ -1,6 +1,21 @@
 import React from 'react';
 import HealthBar from '../components/battle/HealthBar';
 
+const warrior = {
+  gesture: 'https://opengameart.org/sites/default/files/warrior_m_gesture.gif',
+  walk: 'https://opengameart.org/sites/default/files/warrior_f_walk.gif',
+  strike: 'https://opengameart.org/sites/default/files/warrior_f_attack.gif',
+  die: 'https://opengameart.org/sites/default/files/warrior_m_death.gif'
+}
+
+const minotaur = {
+  gesture: 'https://opengameart.org/sites/default/files/minotaur%20idle.gif',
+  roar: 'https://opengameart.org/sites/default/files/minotaur%20gesture.gif',
+  walk: 'https://opengameart.org/sites/default/files/minotaur%20walk.gif',
+  strike: 'https://opengameart.org/sites/default/files/minotaur%20attack.gif'
+}
+
+
 class BattleTest extends React.Component {
   constructor(props) {
     super(props);
@@ -121,20 +136,26 @@ class BattleTest extends React.Component {
     return(
       <div className='main-container'>
         <div className='secondary-container'>
-          <div className='info-column'>
+          <div className='column'>
             <h1>Player</h1>
             <p>Remaining Health: { this.state.player.health }</p>
           </div>
           <h2>Current Turn: { this.state.playerTurn ? 'Player' : 'Enemy' }</h2>
-          <div className='info-column'>
+          <div className='column'>
             <h1>Enemy</h1>
             <p>Remaining Health: { this.state.enemy.health }</p>
           </div>
         </div>
         <button onClick={ this.attack }>Attack</button>
         <div className='secondary-container'>
-          <HealthBar healthStyle={ playerHealthStyle }/>
-          <HealthBar healthStyle={ enemyHealthStyle }/>
+          <div className='column'>
+            <img src={warrior.gesture}/>
+            <HealthBar healthStyle={ playerHealthStyle }/>
+          </div>
+          <div className='column'>
+            <img src={minotaur.gesture} style={{height: '192px', width: '256px'}}/>
+            <HealthBar healthStyle={ enemyHealthStyle }/>
+          </div>
         </div>
         <h3>Event Log</h3>
         { this.state.eventLog.length > 0 && this.state.eventLog.map((event, i) => <p key={ event + i }>{ event }</p>) }
@@ -147,7 +168,7 @@ class BattleTest extends React.Component {
             display: flex;
             justify-content: space-around;
           }
-          .info-column {
+          .column {
             display: flex;
             flex-direction: column;
           }
