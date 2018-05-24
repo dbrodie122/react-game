@@ -35,11 +35,13 @@ class BattleTest extends React.Component {
         maxHealth:10,
         strength: 5
       },
-      eventLog: []
+      eventLog: [],
+      animate: false,
     }
     this.attack = this.attack.bind(this);
     this.manageTurnData = this.manageTurnData.bind(this);
     this.manageEnemyInterval = this.manageEnemyInterval.bind(this);
+    this.animateStrike = this.animateStrike.bind(this);
   }
 
   componentDidMount() {
@@ -57,7 +59,7 @@ class BattleTest extends React.Component {
     const damage = Math.floor((Math.random() * attacker.strength) + 1);
     const tCopy = { ...target };
     tCopy.health -= damage;
-    const eventLog = this.state.eventLog;
+    const eventLog = [...this.state.eventLog];
     const event = `${attacker.name} attacks ${targetString} for ${damage} damage!`;
     eventLog.push(event);
     if (targetString === 'player') {
@@ -92,7 +94,12 @@ class BattleTest extends React.Component {
       this.setState((state) => ({ playerTurn: true, target: 'enemy', attacker: 'player' }))      
     }
   }
-
+  
+  animateStrike() {
+    //toggle a class on the animation box that will show the strike
+    this.setState(state => ({ animate: true }))
+    setTimeout(()=> this.setState(state => ({animate: false})), 500)
+  }
 
   render() {
     let percentPlayerHealth = ((this.state.player.health / this.state.player.maxHealth) * 100)
@@ -133,6 +140,8 @@ class BattleTest extends React.Component {
       transition: 'all 0.5s'
     };
 
+    let strikeAnimation = this.state.animate ? 'stripe animate' : 'stripe';
+
     return(
       <div className='main-container'>
         <div className='secondary-container'>
@@ -147,6 +156,7 @@ class BattleTest extends React.Component {
           </div>
         </div>
         <button onClick={ this.attack }>Attack</button>
+        <button onClick={ this.animateStrike }>Animate Strike</button>
         <div className='secondary-container'>
           <div className='column'>
             <img src={warrior.gesture}/>
@@ -157,6 +167,7 @@ class BattleTest extends React.Component {
           <div className='column'>
             <img src={minotaur.gesture} style={{height: '192px', width: '256px'}}/>
             <div className='animation-box'>
+                <div className={strikeAnimation}></div>
             </div>
             <HealthBar healthStyle={ enemyHealthStyle }/>
           </div>
@@ -181,6 +192,20 @@ class BattleTest extends React.Component {
             width: 256px;
             position: absolute;
             background-color: rgba(122,435,353,0.3);
+          }
+          .stripe {
+            position: absolute;
+            width: 0%;
+            height: 0px;
+            top: 116px;
+            left: 61px;
+            background-color: black;
+            transform: rotate(-45deg);
+            transition: all 0.2s;
+          }
+          .stripe.animate {
+            height: 4px;
+            width: 50%;
           }
         `}</style>
       </div>
