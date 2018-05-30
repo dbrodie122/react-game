@@ -168,6 +168,7 @@ class BattleTest extends React.Component {
             <img src={minotaur.gesture} style={{height: '192px', width: '256px'}}/>
             <div className='animation-box'>
                 <div className={strikeAnimation}></div>
+                <span className='next-try'></span>
             </div>
             <HealthBar healthStyle={ enemyHealthStyle }/>
           </div>
@@ -206,6 +207,14 @@ class BattleTest extends React.Component {
           .stripe.animate {
             height: 4px;
             width: 50%;
+          }
+          .next-try {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+          }
+          .next-try:before {
+
           }
         `}</style>
       </div>
